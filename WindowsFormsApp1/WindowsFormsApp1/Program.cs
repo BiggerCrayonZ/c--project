@@ -9,7 +9,7 @@ namespace WindowsFormsApp1
     static class Program
     {
         /// <summary>
-        /// Punto de entrada principal para la aplicación.
+        /// Raúl Enrique Reza del Castillo
         /// </summary>
         [STAThread]
         static void Main()
