@@ -4,12 +4,46 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace temp1
 {
+
+    /*
+     * 
+     * Raúl Enrique Reza del Castillo
+     * José Manuel Chairez Macias
+     * José Jeremias Chairez Macias
+     * 
+     * */
     class Program
     {
+        decimal quantum { get; set; }
+
+        public Program()
+        {
+            this.quantum = 0.00001M;
+        }
+
         static void Main()
+        {
+
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new form1());
+        }
+
+        public decimal getQuatum()
+        {
+            return this.quantum;
+        }
+
+        public void setQuantum(decimal value)
+        {
+            this.quantum = value;
+        }
+
+        public void iniciaProceso()
         {
             Random rnd = new Random();
             // Create a scheduler that uses two threads. 
@@ -24,9 +58,7 @@ namespace temp1
             Object lockObj = new Object();
             int outputItem = 0;
 
-            double quantum = 0.001;
-
-
+            
 
             for (int tCtr = 0; tCtr <= 2; tCtr++)
             {
@@ -42,11 +74,12 @@ namespace temp1
                             var watch = System.Diagnostics.Stopwatch.StartNew();
                             Tarea tr = new Tarea(x, y, i);
                             int result = tr.ejecutarProceso();
-                            
+
                             watch.Stop();
                             var lapsedms = watch.Elapsed.TotalMilliseconds * 100;
+                            decimal dec = (decimal)lapsedms; 
                             Console.WriteLine("Tiempo realizado: " + lapsedms);
-                            if(lapsedms <= quantum)
+                            if (dec <= quantum)
                             {
                                 Console.WriteLine("Tarea Realizada");
                             }
@@ -55,13 +88,13 @@ namespace temp1
                                 Console.WriteLine("Tarea NO  Realizada");
                                 //
                             }
-                            
+
                         }
                     }
                 }, cts.Token);
                 tasks.Add(t);
-            }                
-            
+            }
+
 
             // Wait for the tasks to complete before displaying a completion message.
             Task.WaitAll(tasks.ToArray());
@@ -70,6 +103,7 @@ namespace temp1
             Console.ReadLine();
         }
     }
+    
 
     // Provides a task scheduler that ensures a maximum concurrency level while 
     // running on top of the thread pool.
